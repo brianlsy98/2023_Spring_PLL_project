@@ -1,0 +1,276 @@
+** Generated for: hspiceD
+** Generated on: Jun 20 19:46:41 2023
+** Design library name: sylee21_pll_snutt45
+** Design cell name: pll_top_v4
+** Design view name: schematic
+.GLOBAL vdd!
+
+** Library name: sylee21_pll_snutt45
+** Cell name: nand2
+** View name: schematic
+.subckt nand2 a b o vdd vss inh_bulk_n inh_bulk_p
+m2 net013 a vss inh_bulk_n nmos L=45e-9 W=1e-6
+m4 o b net013 inh_bulk_n nmos L=45e-9 W=1e-6
+m5 o a vdd inh_bulk_p pmos L=45e-9 W=2e-6
+m1 o b vdd inh_bulk_p pmos L=45e-9 W=2e-6
+.ends nand2
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: inv
+** View name: schematic
+.subckt inv vdd vss in out inh_bulk_n inh_bulk_p
+m35 out in vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m41 out in vss inh_bulk_n nmos L=45e-9 W=500e-9
+.ends inv
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: dff_w_rst
+** View name: schematic
+.subckt dff_w_rst clk d q rstb vdd vss inh_bulk_n inh_bulk_p
+m46 blch rstb vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m45 iclkb clk vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m44 flch rstb vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m43 iclk iclkb vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m37 net017 q vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m36 blch iclk net017 inh_bulk_p pmos L=45e-9 W=1e-6
+m33 blch iclkb net025 inh_bulk_p pmos L=45e-9 W=1e-6
+m32 net025 lch vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m29 flch iclkb net021 inh_bulk_p pmos L=45e-9 W=1e-6
+m28 net021 lch vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m7 net020 d vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m1 flch iclk net020 inh_bulk_p pmos L=45e-9 W=1e-6
+xi17 vdd vss blch q inh_bulk_n inh_bulk_p inv
+xi16 vdd vss flch lch inh_bulk_n inh_bulk_p inv
+m42 iclkb clk vss inh_bulk_n nmos L=45e-9 W=500e-9
+m41 iclk iclkb vss inh_bulk_n nmos L=45e-9 W=500e-9
+m35 net018 q vss inh_bulk_n nmos L=45e-9 W=500e-9
+m34 blch iclkb net018 inh_bulk_n nmos L=45e-9 W=500e-9
+m31 net019 lch vss inh_bulk_n nmos L=45e-9 W=500e-9
+m30 blch iclk net019 inh_bulk_n nmos L=45e-9 W=500e-9
+m27 net026 lch vss inh_bulk_n nmos L=45e-9 W=500e-9
+m26 flch iclk net026 inh_bulk_n nmos L=45e-9 W=500e-9
+m6 net022 d vss inh_bulk_n nmos L=45e-9 W=500e-9
+m2 flch iclkb net022 inh_bulk_n nmos L=45e-9 W=500e-9
+.ends dff_w_rst
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: bbpfd
+** View name: schematic
+.subckt bbpfd dn fb_clk ref_clk up vdd vss inh_bulk_n inh_bulk_p
+xi8 up dn net015 vdd vss inh_bulk_n inh_bulk_p nand2
+xi6 vdd vss net016 net03 inh_bulk_n inh_bulk_p inv
+xi7 vdd vss net015 net016 inh_bulk_n inh_bulk_p inv
+xi5 ref_clk vdd up net03 vdd vss inh_bulk_n inh_bulk_p dff_w_rst
+xi4 fb_clk vdd dn net03 vdd vss inh_bulk_n inh_bulk_p dff_w_rst
+.ends bbpfd
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: op_amp
+** View name: schematic
+.subckt op_amp vdd vss in_n in_p out inh_bulk_n inh_bulk_p
+m9 out net18 vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m5 net12 in_n net14 inh_bulk_p pmos L=45e-9 W=1e-6
+m4 net17 in_p net14 inh_bulk_p pmos L=45e-9 W=1e-6
+m2 net14 net18 vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m1 net18 net18 vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m10 out net17 vss inh_bulk_n nmos L=45e-9 W=500e-9
+m6 net17 net12 vss inh_bulk_n nmos L=45e-9 W=500e-9
+m7 net12 net12 vss inh_bulk_n nmos L=45e-9 W=500e-9
+m0 net18 vdd vss inh_bulk_n nmos L=45e-9 W=500e-9
+.ends op_amp
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: charge_pump
+** View name: schematic
+.subckt charge_pump dn up vctrl vdd vss inh_bulk_n inh_bulk_p
+i10 vdd vn1 DC=250e-6
+xi6 vdd vss vctrl net13 vp2 inh_bulk_n inh_bulk_p op_amp
+xi7 vdd vss vctrl net16 vn2 inh_bulk_n inh_bulk_p op_amp
+xi8 vdd vss dn dnb inh_bulk_n inh_bulk_p inv
+m25 vctrl vp1 net020 inh_bulk_p pmos L=45e-9 W=1e-6
+m26 vctrl vp2 net021 inh_bulk_p pmos L=45e-9 W=1e-6
+m23 net021 dnb vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m24 net020 dnb vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m32 net16 vp1 vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m36 vp1 vp1 vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m33 net13 vp2 vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m30 vctrl vn1 net018 inh_bulk_n nmos L=45e-9 W=500e-9
+m28 net019 up vss inh_bulk_n nmos L=45e-9 W=500e-9
+m43 vn1 vn1 vss inh_bulk_n nmos L=45e-9 W=500e-9
+m29 net018 up vss inh_bulk_n nmos L=45e-9 W=500e-9
+m27 vctrl vn2 net019 inh_bulk_n nmos L=45e-9 W=500e-9
+m37 net16 vn2 vss inh_bulk_n nmos L=45e-9 W=500e-9
+m40 net13 vn1 vss inh_bulk_n nmos L=45e-9 W=500e-9
+m41 vp1 vn1 vss inh_bulk_n nmos L=45e-9 W=500e-9
+.ends charge_pump
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: dff
+** View name: schematic
+.subckt dff clk d q vdd vss inh_bulk_n inh_bulk_p
+m43 iclk iclkb vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m45 iclkb clk vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m37 net017 q vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m29 flch iclkb net021 inh_bulk_p pmos L=45e-9 W=1e-6
+m36 blch iclk net017 inh_bulk_p pmos L=45e-9 W=1e-6
+m28 net021 lch vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m32 net025 lch vdd inh_bulk_p pmos L=45e-9 W=1e-6
+m33 blch iclkb net025 inh_bulk_p pmos L=45e-9 W=1e-6
+m1 flch iclk net020 inh_bulk_p pmos L=45e-9 W=1e-6
+m7 net020 d vdd inh_bulk_p pmos L=45e-9 W=1e-6
+xi17 vdd vss blch q inh_bulk_n inh_bulk_p inv
+xi16 vdd vss flch lch inh_bulk_n inh_bulk_p inv
+m42 iclkb clk vss inh_bulk_n nmos L=45e-9 W=500e-9
+m34 blch iclkb net018 inh_bulk_n nmos L=45e-9 W=500e-9
+m30 blch iclk net019 inh_bulk_n nmos L=45e-9 W=500e-9
+m27 net026 lch vss inh_bulk_n nmos L=45e-9 W=500e-9
+m35 net018 q vss inh_bulk_n nmos L=45e-9 W=500e-9
+m31 net019 lch vss inh_bulk_n nmos L=45e-9 W=500e-9
+m41 iclk iclkb vss inh_bulk_n nmos L=45e-9 W=500e-9
+m26 flch iclk net026 inh_bulk_n nmos L=45e-9 W=500e-9
+m6 net022 d vss inh_bulk_n nmos L=45e-9 W=500e-9
+m2 flch iclkb net022 inh_bulk_n nmos L=45e-9 W=500e-9
+.ends dff
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: div4
+** View name: schematic
+.subckt div4 clk clk_out vdd vss inh_bulk_n inh_bulk_p
+xi1 net5 net13 net7 vdd vss inh_bulk_n inh_bulk_p dff
+xi0 clk net8 net5 vdd vss inh_bulk_n inh_bulk_p dff
+xi6 vdd vss net7 net25 inh_bulk_n inh_bulk_p inv
+xi4 vdd vss net7 net13 inh_bulk_n inh_bulk_p inv
+xi3 vdd vss net5 net8 inh_bulk_n inh_bulk_p inv
+m36 clk_out net25 vdd inh_bulk_p pmos L=45e-9 W=2e-6
+m41 clk_out net25 vss inh_bulk_n nmos L=45e-9 W=1e-6
+.ends div4
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: VCO_1stage
+** View name: schematic
+.subckt VCO_1stage vdd vss vctrl in_n in_p out_n out_p inh_bulk_n inh_bulk_p
+m27 out_n out_p vss inh_bulk_n nmos L=45e-9 W=250e-9
+m13 out_p out_n vss inh_bulk_n nmos L=45e-9 W=250e-9
+m7 out_n in_p vss inh_bulk_n nmos L=45e-9 W=1e-6
+m24 out_p in_n vss inh_bulk_n nmos L=45e-9 W=1e-6
+m14 out_p out_n vdd inh_bulk_p pmos L=45e-9 W=500e-9
+m28 out_n out_p vdd inh_bulk_p pmos L=45e-9 W=500e-9
+m9 net14 vctrl vdd inh_bulk_p pmos L=45e-9 W=2e-6
+m8 out_n in_p net14 inh_bulk_p pmos L=45e-9 W=2e-6
+m26 net19 vctrl vdd inh_bulk_p pmos L=45e-9 W=2e-6
+m25 out_p in_n net19 inh_bulk_p pmos L=45e-9 W=2e-6
+.ends VCO_1stage
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: VCO_injection
+** View name: schematic
+.subckt VCO_injection clk_out_n clk_out_p vdd vss vctrl inj inh_bulk_n inh_bulk_p
+m0 clk_out_p inj clk_out_n inh_bulk_n nmos L=45e-9 W=5e-6
+xi4 vdd vss vctrl net19 net18 clk_out_n clk_out_p inh_bulk_n inh_bulk_p VCO_1stage
+xi3 vdd vss vctrl net17 net16 net18 net19 inh_bulk_n inh_bulk_p VCO_1stage
+xi2 vdd vss vctrl net15 net14 net16 net17 inh_bulk_n inh_bulk_p VCO_1stage
+xi1 vdd vss vctrl clk_out_n clk_out_p net14 net15 inh_bulk_n inh_bulk_p VCO_1stage
+.ends VCO_injection
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: inv_4x
+** View name: schematic
+.subckt inv_4x vdd vss vin vout inh_bulk_n inh_bulk_p
+m0 vout vin vss inh_bulk_n nmos L=45e-9 W=1e-6
+m1 vout vin vdd inh_bulk_p pmos L=45e-9 W=2e-6
+.ends inv_4x
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: inv_8x
+** View name: schematic
+.subckt inv_8x vdd vss vin vout inh_bulk_n inh_bulk_p
+m0 vout vin vss inh_bulk_n nmos L=45e-9 W=2e-6
+m1 vout vin vdd inh_bulk_p pmos L=45e-9 W=4e-6
+.ends inv_8x
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: xor
+** View name: schematic
+.subckt xor a b o vdd vss inh_bulk_n inh_bulk_p
+xi3 vdd vss b net7 inh_bulk_n inh_bulk_p inv_8x
+m0 a b o inh_bulk_p pmos L=45e-9 W=8e-6
+m29 o a b inh_bulk_p pmos L=45e-9 W=8e-6
+m1 a net7 o inh_bulk_n nmos L=45e-9 W=4e-6
+m26 o a net7 inh_bulk_n nmos L=45e-9 W=4e-6
+.ends xor
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: inv_16x
+** View name: schematic
+.subckt inv_16x vdd vss vin vout inh_bulk_n inh_bulk_p
+m0 vout vin vss inh_bulk_n nmos L=45e-9 W=4e-6
+m1 vout vin vdd inh_bulk_p pmos L=45e-9 W=8e-6
+.ends inv_16x
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: pulse_gen_xor
+** View name: schematic
+.subckt pulse_gen_xor vdd vss in out inh_bulk_n inh_bulk_p
+xi25 vdd vss net038 net010 inh_bulk_n inh_bulk_p inv
+xi12 vdd vss net017 net038 inh_bulk_n inh_bulk_p inv
+xi11 vdd vss net013 net017 inh_bulk_n inh_bulk_p inv
+xi8 vdd vss in net012 inh_bulk_n inh_bulk_p inv
+xi7 vdd vss net012 net013 inh_bulk_n inh_bulk_p inv
+xi5 in net020 out vdd vss inh_bulk_n inh_bulk_p xor
+xi20 vdd vss net010 net4 inh_bulk_n inh_bulk_p inv_4x
+xi21 vdd vss net4 net016 inh_bulk_n inh_bulk_p inv_8x
+xi24 vdd vss net016 net020 inh_bulk_n inh_bulk_p inv_16x
+.ends pulse_gen_xor
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: pulse_gen
+** View name: schematic
+.subckt pulse_gen vdd vss in out inh_bulk_n inh_bulk_p
+xi6 vdd vss net013 net012 inh_bulk_n inh_bulk_p inv
+xi5 vdd vss in net013 inh_bulk_n inh_bulk_p inv
+xi4 vdd vss net010 out inh_bulk_n inh_bulk_p inv
+xi2 vdd vss net4 net08 inh_bulk_n inh_bulk_p inv
+xi1 vdd vss net5 net4 inh_bulk_n inh_bulk_p inv
+xi0 vdd vss net012 net5 inh_bulk_n inh_bulk_p inv
+xi3 in net08 net010 vdd vss inh_bulk_n inh_bulk_p nand2
+.ends pulse_gen
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: pll_top_v4
+** View name: schematic
+xi27 dn fb_clk ref_clk_buf_2x up vdd vss 0 vdd! bbpfd
+c1 vss vctrl 500e-15
+c0 vss net011 100e-12
+xi25 dn up vctrl vdd vss 0 vdd! charge_pump
+r0 vctrl net011 5e3
+xi5 net019 fb_clk vdd vss 0 vdd! div4
+xi45 vdd vss net021 net028 0 vdd! inv
+xi32 vdd vss net023 ref_clk_2x 0 vdd! inv
+xi6 vdd vss net016 clk_out_buf 0 vdd! inv
+xi26 clk_outb net016 vdd vss vctrl injection 0 vdd! VCO_injection
+xi48 vdd vss ref_clk net026 0 vdd! inv_4x
+xi38 vdd vss net028 net022 0 vdd! inv_4x
+xi33 vdd vss ref_clk_2x ref_clk_buf_2x 0 vdd! inv_4x
+xi7 vdd vss clk_out_buf net019 0 vdd! inv_4x
+xi34 vdd vss net020 net023 0 vdd! pulse_gen_xor
+xi35 vdd vss ref_clk net021 0 vdd! pulse_gen
+xi41 vdd vss net025 injection 0 vdd! inv_16x
+xi31 vdd vss net024 net020 0 vdd! inv_16x
+xi47 vdd vss net026 net024 0 vdd! inv_8x
+xi39 vdd vss net022 net025 0 vdd! inv_8x

@@ -1,0 +1,32 @@
+** Generated for: hspiceD
+** Generated on: Jun 20 22:22:25 2023
+** Design library name: sylee21_pll_snutt45
+** Design cell name: VCO_injection
+** Design view name: schematic
+.GLOBAL vdd!
+
+** Library name: sylee21_pll_snutt45
+** Cell name: VCO_1stage
+** View name: schematic
+.subckt VCO_1stage vdd vss vctrl in_n in_p out_n out_p inh_bulk_n inh_bulk_p
+m27 out_n out_p vss inh_bulk_n nmos L=45e-9 W=250e-9
+m13 out_p out_n vss inh_bulk_n nmos L=45e-9 W=250e-9
+m7 out_n in_p vss inh_bulk_n nmos L=45e-9 W=1e-6
+m24 out_p in_n vss inh_bulk_n nmos L=45e-9 W=1e-6
+m14 out_p out_n vdd inh_bulk_p pmos L=45e-9 W=500e-9
+m28 out_n out_p vdd inh_bulk_p pmos L=45e-9 W=500e-9
+m9 net14 vctrl vdd inh_bulk_p pmos L=45e-9 W=2e-6
+m8 out_n in_p net14 inh_bulk_p pmos L=45e-9 W=2e-6
+m26 net19 vctrl vdd inh_bulk_p pmos L=45e-9 W=2e-6
+m25 out_p in_n net19 inh_bulk_p pmos L=45e-9 W=2e-6
+.ends VCO_1stage
+** End of subcircuit definition.
+
+** Library name: sylee21_pll_snutt45
+** Cell name: VCO_injection
+** View name: schematic
+m0 clk_out_p inj clk_out_n 0 nmos L=45e-9 W=5e-6
+xi4 vdd vss vctrl net19 net18 clk_out_n clk_out_p 0 vdd! VCO_1stage
+xi3 vdd vss vctrl net17 net16 net18 net19 0 vdd! VCO_1stage
+xi2 vdd vss vctrl net15 net14 net16 net17 0 vdd! VCO_1stage
+xi1 vdd vss vctrl clk_out_n clk_out_p net14 net15 0 vdd! VCO_1stage
